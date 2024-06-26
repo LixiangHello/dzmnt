@@ -62,7 +62,7 @@ if "ratings" not in st.session_state:
 st.subheader("请对动漫进行评分(1-5分)")
 for i, anime in st.session_state["random_animes"].iterrows():
     rating = st.slider(
-        f'推荐动漫[{i+1}]: {anime["anime"]}', 1, 5, key=f"rec_rating_{i}"
+        f'推荐动漫[{i+1}]: {anime["anime"]}', 1, 5, key=f"rec_rating_kk{i}"
     )
 
     if st.button(f"提交评分 动漫{i+1}", key=f"button_{i}"):
@@ -82,11 +82,16 @@ if st.button("推荐动漫"):
     if "recommended_animes" in st.session_state:
         st.subheader("推荐动漫")
         total_rating = 0
+        idx = 1
         for i, anime in enumerate(st.session_state["recommended_animes"]):
+            # rating = st.slider(
+            #     f'推荐动漫[{i+1}]: {anime["anime"]}', 1, 5, key=f"rec_rating_{i}"
+            # )
             rating = st.slider(
-                f'推荐动漫[{i+1}]: {anime["anime"]}', 1, 5, key=f"rec_rating_{i}"
+                f'1', 1, 5, key=f"rec_rating_{idx}"
             )
             total_rating += rating
+            idx += 1
         if len(st.session_state["recommended_animes"]) > 0:
             satisfaction = total_rating / len(st.session_state["recommended_animes"])
             st.write(f"用户满意度：{satisfaction:.2f} / 5")
